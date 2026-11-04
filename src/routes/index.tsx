@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import {
   ArrowRight, Mail, Phone, Github, Linkedin, MapPin, Sparkles,
   Code2, Database, Boxes, Cloud, Brain, Cpu, GraduationCap, Briefcase,
-  Bot, Workflow, Eye, MessageSquare, Send, ExternalLink,
+  Bot, Workflow, Eye, MessageSquare, Send, ExternalLink, Truck,
 } from "lucide-react";
 import { Particles } from "@/components/portfolio/Particles";
 import { Nav } from "@/components/portfolio/Nav";
@@ -31,20 +31,32 @@ const EMAILJS_TEMPLATE_ID = "template_ix28rua";
 const EMAILJS_PUBLIC_KEY = "PogD-VWEGvugo28Lm";
 
 const skillGroups = [
-  { title: "Programming", icon: Code2, items: ["Python", "SQL"] },
-  { title: "Databases", icon: Database, items: ["MongoDB", "MySQL"] },
-  { title: "Frameworks & Libraries", icon: Boxes, items: ["PyTorch", "TensorFlow", "LangChain", "LangGraph", "LlamaIndex"] },
-  { title: "Tools & Platforms", icon: Cloud, items: ["FastAPI", "Docker", "Git", "Azure", "GCP", "CI/CD", "Postman"] },
-  { title: "AI Domains", icon: Brain, items: ["Computer Vision", "NLP", "Generative AI", "LLMs"] },
+  { title: "Programming", icon: Code2, items: ["Python", "SQL", ".NET"] },
+  { title: "Databases", icon: Database, items: ["PostgreSQL", "MongoDB", "MySQL", "SQLite"] },
+  { title: "Frameworks & Libraries", icon: Boxes, items: ["PyTorch", "TensorFlow", "LangChain", "LangGraph", "LlamaIndex", "React", "Next.js", "Node.js", "Flutter"] },
+  { title: "Tools & Platforms", icon: Cloud, items: ["FastAPI", "Docker", "Git", "Azure", "Azure DevOps", "GCP", "CI/CD", "Postman", "Stripe", "Google Maps API"] },
+  { title: "AI Domains", icon: Brain, items: ["Computer Vision", "NLP", "Generative AI", "LLMs", "RAG", "Multimodal AI"] },
 ];
 
 const services = [
   { icon: Cpu, title: "AI/ML Model Development", desc: "End-to-end design, training, and deployment of robust models for vision, language and multimodal tasks." },
-  { icon: Workflow, title: "API Development", desc: "Scalable, production-ready FastAPI services with caching, observability and clean async pipelines." },
-  { icon: Bot, title: "LLM Applications", desc: "Chatbots, AI agents, RAG systems and automation built with LangChain, LangGraph and LlamaIndex." },
+  { icon: Workflow, title: "Full-Stack & API Development", desc: "Production-ready apps and FastAPI services with React, Flutter and .NET, plus payment, maps and AI integrations." },
+  { icon: Bot, title: "LLM Applications", desc: "Chatbots, RAG systems, voice transcription and document extraction built with OpenAI models and LangChain." },
 ];
 
-const projects = [
+const projects: {
+  name: string;
+  img?: string;
+  tagline: string;
+  desc: string;
+  tags: string[];
+}[] = [
+  {
+    name: "Freight Marketplace",
+    tagline: "Logistics platform connecting shippers, carriers and drivers.",
+    desc: "Full-stack marketplace with in-app Stripe payments, real-time driver tracking, AI voice reporting for road incidents, and facial recognition with liveness detection for identity verification.",
+    tags: ["React", "Flutter", ".NET", "Stripe", "OpenAI", "Azure"],
+  },
   {
     name: "Solentrex",
     img: solentrexImg,
@@ -69,13 +81,44 @@ const projects = [
 ];
 
 const experience = [
-  "Developed real-time audio transcription and speech-to-text systems using Google Speech-to-Text API, improving accuracy by 70%.",
-  "Built multilingual transcription pipelines and used LLMs for insight extraction from conversational data.",
-  "Architected an AI-driven solar automation platform combining computer vision, geospatial analytics, and generative AI.",
-  "Developed a 3D roof reconstruction pipeline using DSM data with Sobel-based slope detection and geometric segmentation.",
-  "Implemented YOLO (v8/v11) for roof detection and segmentation with DBSCAN clustering and RANSAC optimization.",
-  "Integrated GPT-4o Vision for extracting structured billing data from PDFs and images, improving accuracy by 30%.",
-  "Introduced a MongoDB caching layer, reducing API cost and latency by 30%.",
+  {
+    title: "AI Software Engineer",
+    company: "Applause Consulting · On-site (Dubai)",
+    period: "Jul 2026 – Present",
+    points: [
+      "Architected and developed a full-stack freight marketplace with .NET, React and Flutter, connecting shippers, carriers and drivers.",
+      "Integrated Stripe for secure in-app payment collection and payouts between shippers and carriers.",
+      "Integrated AI voice reporting using OpenAI's GPT transcription model, so drivers can report accidents and road incidents from the mobile app.",
+      "Implemented facial recognition and liveness detection with YuNet, SFace and Silent-Face for identity verification and anti-spoofing checks.",
+      "Developed real-time driver tracking and shipment monitoring with the Google Maps API.",
+      "Deployed and maintained applications on Azure VMs using Docker and Azure DevOps CI/CD pipelines.",
+      "Designed and developed a project management platform for a government entity, with approval workflows, dashboards, reporting and RBAC.",
+      "Owned solution architecture, development, AI integrations and deployment, and worked directly with clients through meetings and demos.",
+    ],
+  },
+  {
+    title: "AI/ML Engineer",
+    company: "Gritstone Technologies · On-site (Calicut)",
+    period: "Jan 2025 – Mar 2026",
+    points: [
+      "Developed real-time audio transcription and speech-to-text systems using Google Speech-to-Text API.",
+      "Built multilingual transcription pipelines and used LLMs for insight extraction from conversational data.",
+      "Architected an AI-driven solar automation platform combining computer vision, geospatial analytics, and generative AI.",
+      "Developed a 3D roof reconstruction pipeline using DSM data with Sobel-based slope detection and geometric segmentation.",
+      "Implemented YOLO (v8/v11) for roof detection and segmentation with DBSCAN clustering and RANSAC optimization.",
+      "Integrated GPT-4o Vision for extracting structured billing data from PDFs and images.",
+      "Introduced a MongoDB caching layer to reduce redundant computation, API costs and latency.",
+    ],
+  },
+  {
+    title: "AI/ML Intern",
+    company: "Gritstone Technologies · On-site (Calicut)",
+    period: "Aug 2024 – Jan 2025",
+    points: [
+      "Worked across data collection, processing, feature engineering and exploratory data analysis.",
+      "Developed, trained, evaluated and optimized models using TensorFlow and PyTorch.",
+    ],
+  },
 ];
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -207,11 +250,10 @@ function Index() {
             Engineering AI that ships.
           </h2>
           <p className="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            I design, develop and deploy end-to-end machine learning systems across computer
-            vision, natural language processing and LLM applications. My focus is scalable,
-            production-ready AI — built with FastAPI, Docker and cloud platforms like GCP
-            and Azure — with a strong track record of improving model reliability, reducing
-            LLM hallucinations and optimizing inference efficiency.
+            I design, develop and deploy AI products across computer vision, natural language
+            processing and LLM applications, from models and APIs to full-stack apps. I build
+            with FastAPI, React, Flutter, Docker and cloud platforms like GCP and Azure, and I
+            work directly with clients from requirements through deployment.
           </p>
         </div>
       </section>
@@ -254,27 +296,31 @@ function Index() {
           <h2 className="text-center font-[Space_Grotesk] text-3xl font-bold sm:text-4xl">
             Where I&apos;ve built things
           </h2>
-          <div className="glass-strong mt-12 rounded-3xl p-8 shadow-elevated sm:p-10">
-            <div className="flex flex-wrap items-start justify-between gap-4">
-              <div className="flex items-start gap-4">
-                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-primary/30 to-accent/30 text-primary">
-                  <Briefcase className="h-5 w-5" />
+          <div className="mt-12 space-y-8">
+            {experience.map((role) => (
+              <div key={`${role.title}-${role.period}`} className="glass-strong rounded-3xl p-8 shadow-elevated sm:p-10">
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div className="flex items-start gap-4">
+                    <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-primary/30 to-accent/30 text-primary">
+                      <Briefcase className="h-5 w-5" />
+                    </div>
+                    <div className="min-w-0">
+                      <h3 className="font-[Space_Grotesk] text-xl font-semibold">{role.title}</h3>
+                      <p className="text-sm text-muted-foreground">{role.company}</p>
+                    </div>
+                  </div>
+                  <span className="glass rounded-full px-3 py-1 text-xs text-primary">{role.period}</span>
                 </div>
-                <div className="min-w-0">
-                  <h3 className="font-[Space_Grotesk] text-xl font-semibold">AI/ML Engineer</h3>
-                  <p className="text-sm text-muted-foreground">Gritstone Technologies · On-site (Calicut)</p>
-                </div>
+                <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+                  {role.points.map((point) => (
+                    <li key={point} className="flex gap-3 rounded-xl border border-border/40 bg-secondary/30 p-4 text-sm leading-relaxed text-muted-foreground">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary shadow-[0_0_10px_var(--neon-cyan)]" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <span className="glass rounded-full px-3 py-1 text-xs text-primary">Jan 2025 – Mar 2026</span>
-            </div>
-            <ul className="mt-8 grid gap-3 sm:grid-cols-2">
-              {experience.map((point) => (
-                <li key={point} className="flex gap-3 rounded-xl border border-border/40 bg-secondary/30 p-4 text-sm leading-relaxed text-muted-foreground">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary shadow-[0_0_10px_var(--neon-cyan)]" />
-                  <span>{point}</span>
-                </li>
-              ))}
-            </ul>
+            ))}
           </div>
         </div>
       </section>
@@ -344,10 +390,16 @@ function Index() {
             {projects.map((p) => (
               <article key={p.name} className="group glass-strong overflow-hidden rounded-3xl transition-all hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_30px_80px_-20px_oklch(0.78_0.16_210_/_40%)]">
                 <div className="relative aspect-[16/10] overflow-hidden">
-                  <img src={p.img} alt={p.name} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  {p.img ? (
+                    <img src={p.img} alt={p.name} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  ) : (
+                    <div className="grid h-full w-full place-items-center bg-gradient-to-br from-primary/30 via-secondary to-accent/30">
+                      <Truck className="h-20 w-20 text-primary transition-transform duration-700 group-hover:scale-105" aria-hidden />
+                    </div>
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
                   <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-background/60 px-3 py-1 text-xs backdrop-blur">
-                    {p.name === "Solentrex" ? <Eye className="h-3.5 w-3.5 text-primary" /> : <MessageSquare className="h-3.5 w-3.5 text-primary" />}
+                    {p.name === "Solentrex" ? <Eye className="h-3.5 w-3.5 text-primary" /> : p.name === "Freight Marketplace" ? <Truck className="h-3.5 w-3.5 text-primary" /> : <MessageSquare className="h-3.5 w-3.5 text-primary" />}
                     {p.name}
                   </div>
                 </div>
